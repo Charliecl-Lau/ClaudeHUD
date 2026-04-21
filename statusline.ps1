@@ -1,11 +1,11 @@
-# Set UTF-8 output
+# Set UTF-8 for both input and output
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::InputEncoding  = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
 
-# Read input from stdin
-$raw = $Input | Out-String
-# Fix unescaped backslashes in Windows paths before parsing
-$raw = $raw -replace '\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', '\\'
+# Read input from stdin and strip BOM if present
+$raw = [Console]::In.ReadToEnd()
+$raw = $raw.TrimStart([char]0xFEFF)
 $inputJson = $raw | ConvertFrom-Json
 
 # Parse JSON
@@ -60,9 +60,9 @@ function Get-ColorPct($val) {
 function Format-Duration($ms) {
     $total_sec = [math]::Floor($ms / 1000)
     if ($total_sec -le 0) { return "0s" }
-    $h = [math]::Floor($total_sec / 3600)
-    $m = [math]::Floor(($total_sec % 3600) / 60)
-    $s = $total_sec % 60
+    $h = [int][math]::Floor($total_sec / 3600)
+    $m = [int][math]::Floor(($total_sec % 3600) / 60)
+    $s = [int]($total_sec % 60)
     if ($h -gt 0) { return "{0}h {1:D2}m" -f $h, $m }
     if ($m -gt 0) { return "{0}m {1:D2}s" -f $m, $s }
     return "{0}s" -f $s
