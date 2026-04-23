@@ -48,6 +48,7 @@ $MAGENTA = "$ESC[35m"
 $BLUE    = "$ESC[34m"
 $WHITE   = "$ESC[37m"
 $SEP     = "${DIM} | ${RESET}"
+$CLEAR = "$ESC[K"
 
 # Helper: color by percentage
 function Get-ColorPct($val) {
