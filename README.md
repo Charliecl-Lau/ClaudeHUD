@@ -2,6 +2,10 @@
 
 A Windows-native status line for [Claude Code](https://claude.ai/code) — inspired by [this YouTube video](https://youtu.be/KuZ6toRchKc?si=jCfnucxpob0Bdx8J) which only covered Mac/Linux. This project ports the same rich HUD to Windows using PowerShell.
 
+## Preview
+
+![ClaudeHUD in action — model info, cost, rate limits, and token stats rendered live at the bottom of every Claude Code response](demo.png)
+
 ## What it shows
 
 Three lines of live session info rendered in your terminal:
